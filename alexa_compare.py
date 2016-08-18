@@ -46,20 +46,21 @@ def printHelp():
     --json | output to json"""
   
 if __name__ == "__main__":
-  if len(sys.argv) in [0,1]:
+  if len(sys.argv) in [0,1] or '--help' in sys.argv:
     printHelp()
     sys.exit()
+  
+  dojson = True if '--json' in sys.argv else False
 
-  results = []
-  dojson = False
-  for argument in sys.argv[1:]:
-    if argument == 'json':
-      dojson = True
-    else:
-      results.append(getSiteRank(argument))
-
+  # get hostnames from sys.argv
+  results = [x for x in sys.argv[1:] if not x.startswith('--')]
+  # map hostnames to siteRanks
+  results = getSiteRanks(results)
   # sort on global rank in descending order; lower is better
   results = sorted(results, key=lambda x: x['global_rank'], reverse=False)
       
   # TODO: Implement non-json output
-  print jsonPretty(results)
+  if dojson:
+    print jsonPretty(results)
+  else:
+    print jsonPretty(results)
