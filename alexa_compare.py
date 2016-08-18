@@ -5,6 +5,7 @@ from pyquery import PyQuery as pq
 from utils import jsonPretty
 
 def getSiteRank(hostname):
+  # TODO: Normalize hostname first
   d = pq('http://www.alexa.com/siteinfo/'+hostname)
   retval = {}
   retval['hostname'] = hostname
@@ -49,7 +50,6 @@ if __name__ == "__main__":
     if argument == 'json':
       dojson = True
     else:
-      # TODO: Normalize hostname
       results.append(getSiteRank(argument))
 
   # sort on global rank in descending order; lower is better
