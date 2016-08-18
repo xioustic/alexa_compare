@@ -30,6 +30,12 @@ def getSiteRank(hostname):
 
   return retval
 
+def getSiteRanks(*hostnames):
+  if type(hostnames[0]) is list:
+    hostnames = hostnames[0]
+  
+  return [getSiteRank(x) for x in hostnames]
+
 def printHelp():
   print """Retrieves and displays Alexa rankings for a hostname.
 
