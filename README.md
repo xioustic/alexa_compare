@@ -5,7 +5,7 @@ Also exposes the getSiteRank and getSiteRanks methods for use as a module.
 
 # Usage as a Command-line Utility
 ```bash
-> python alexa_compare.py
+> alexa_compare.py
 Retrieves and displays Alexa rankings for a hostname.
 
   Usage: alexa_compare.py [Flags]... [Hostname]...
@@ -17,7 +17,7 @@ Retrieves and displays Alexa rankings for a hostname.
 
 # Example Command-Line Usage
 ```bash
-> python alexa_compare.py --json github.com gitlab.com
+> alexa_compare.py --json github.com gitlab.com
 [
   {
     "global_rank":53,
