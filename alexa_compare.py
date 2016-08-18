@@ -15,11 +15,17 @@ def getSiteRank(hostname):
 
   # normalize to standard integers
   for key in ['global_rank', 'top_country_rank']:
+
     retval[key] = retval[key].replace(',','')
-    try:
-      retval[key] = int(retval[key])
-    except:
-      print >> sys.stderr, "Failed to parse", key, "for", hostname, "with value of", retval[key]
+
+    # empty string for a rank indicates lack of a ranking
+    if retval[key] == "":
+      retval[key] = 0
+    else:
+      try:
+        retval[key] = int(retval[key])
+      except:
+        print >> sys.stderr, "Failed to parse", key, "for", hostname, "with value of", retval[key]
 
   return retval
 
@@ -46,8 +52,8 @@ if __name__ == "__main__":
       # TODO: Normalize hostname
       results.append(getSiteRank(argument))
 
-  # sort on global rank; lower is better
-  sorted(results, key=lambda x: x['global_rank'])
+  # sort on global rank in descending order; lower is better
+  results = sorted(results, key=lambda x: x['global_rank'], reverse=False)
       
   # TODO: Implement non-json output
   print jsonPretty(results)
